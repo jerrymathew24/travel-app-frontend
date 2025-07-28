@@ -3,20 +3,22 @@ import axios from 'axios';
 import HotelCard from '../components/HotelCard';
 import Navbar from '../components/Navbar';
 import Categories from '../components/Categories';
+import { useCategory } from '../context/category-context';
 
 const Home = () => {
   const [hotels, setHotels] = useState([]);
+  const { hotelCategory } = useCategory();
 
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios.get("https://travel-app-backend-lsj1.onrender.com/api/hotels");
+        const { data } = await axios.get(`https://travel-app-backend-lsj1.onrender.com/api/hotels?category=${hotelCategory}`);
         setHotels(data);
       } catch (error) {
         console.error("Failed to fetch hotels:", error);
       }
     })();
-  }, []);
+  }, [hotelCategory]);
 
   return (
     <>
