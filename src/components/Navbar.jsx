@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Navbar = () => {
     return (
         <nav className="bg-white border-b-1 border-gray-300 fixed top-0 left-0 w-full z-50">
@@ -5,7 +7,7 @@ const Navbar = () => {
                 <div className="flex items-center justify-between h-16">
                     {/* Logo / Brand */}
                     <div className="flex-shrink-0 text-4xl font-bold text-blue-600 cursor-pointer">
-                        <span to="/">TravelO</span>
+                        <Link to="/">TravelO</Link>
                     </div>
 
                     {/* Nav spans */}
