@@ -1,9 +1,16 @@
-const HotelCard = ({hotel}) => {
+import { useNavigate } from "react-router-dom";
+const HotelCard = ({ hotel }) => {
 
-  const {_id, name, image, address, rating, state, price} = hotel;
+  const { _id, name, image, address, rating, state, price } = hotel;
+
+  const navigate = useNavigate();
+
+  const onHotelCardClick = () => {
+    navigate(`/hotels/${name}/${address}/${state}/${_id}/reserve`, );
+  }
 
   return (
-    <div className="relative w-[14rem] h-[17rem] bg-white shadow-md rounded-lg overflow-hidden">
+    <div onClick={onHotelCardClick} className="relative w-[14rem] h-[17rem] bg-white shadow-md rounded-lg overflow-hidden">
       {/* Heart icon button */}
       <button className="absolute top-2 right-2 p-2">
         <span
@@ -14,7 +21,7 @@ const HotelCard = ({hotel}) => {
       </button>
 
       {/* Image */}
-      <div className="h-[10rem] w-full overflow-hidden">
+      <div  className="h-[10rem] w-full overflow-hidden">
         <img
           className="object-cover w-full h-full"
           src={image}
