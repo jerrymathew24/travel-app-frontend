@@ -1,35 +1,36 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-
 import HotelCard from '../components/HotelCard';
 import Navbar from '../components/Navbar';
+import Categories from '../components/Categories';
+import { useCategory } from '../context/category-context';
 
 const Home = () => {
+  const [hotels, setHotels] = useState([]);
+  const { hotelCategory } = useCategory();
 
-    const [hotels, setHotels] = useState([]);
-    useEffect(() => {
-        (
-            async () => {
-                try {
-                    const { data } = await axios.get("https://travel-app-backend-lsj1.onrender.com/api/hotels")
-                    setHotels(data);
-                } catch (error) {
-                    console.log(error);
-                }
-            }
-        )()
-    }, [])
+  useEffect(() => {
+    (async () => {
+      try {
+        const { data } = await axios.get(`https://travel-app-backend-lsj1.onrender.com/api/hotels?category=${hotelCategory}`);
+        setHotels(data);
+      } catch (error) {
+        console.error("Failed to fetch hotels:", error);
+      }
+    })();
+  }, [hotelCategory]);
 
+  return (
+    <>
+      <Navbar />
+      <Categories />
+      <main className="mt-28 p-4 flex flex-wrap justify-center gap-6">
+        {hotels.map(hotel => (
+          <HotelCard key={hotel._id} hotel={hotel} />
+        ))}
+      </main>
+    </>
+  );
+};
 
-    return (
-        <>
-            <Navbar />
-            <main className='mt-24 p-4 flex flex-wrap justify-center gap-4'>
-                {
-                    hotels.map(hotel => <HotelCard key={hotel._id} hotel={hotel} />)
-                }
-            </main>
-        </>
-    )
-}
 export default Home;
