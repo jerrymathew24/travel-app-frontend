@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 
-const value = 1000
+const value = 125000
 function valuetext(value) {
     return `${value}`;
 }
@@ -11,7 +11,7 @@ const PriceRange = () => {
     return (
         <div className="py-[1rem]">
             <span className='font-medium text-2xl'>Price Range</span>
-            <Box sx={{ width: 300 }}>
+            <Box>
                 <Slider
                     className=''
                     getAriaLabel={() => 'Minimum Difference'}
