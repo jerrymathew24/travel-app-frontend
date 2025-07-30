@@ -3,6 +3,7 @@ import { useCategory } from "../context/category-context";
 import { useDate } from "../context/date-context";
 import DateSelector from "./DateSelector";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 
 const SearchStayWithDate = () => {
@@ -10,6 +11,7 @@ const SearchStayWithDate = () => {
     const [hotels, setHotels] = useState([]);
     const { destination, guests, dateDispatch, isSearchResultOpen } = useDate();
     const { hotelCategory } = useCategory();
+    const navigate = useNavigate()
 
     useEffect(() => {
         (async () => {
@@ -47,6 +49,13 @@ const SearchStayWithDate = () => {
         dateDispatch({
              type: "SHOW_SEARCH_RESULT"
         })
+    }
+
+    const handleSearchButtonClick =()=>{
+        dateDispatch({
+            type: "CLOSE_SEARCH_MODAL"
+        })
+        navigate(`hotels/${destination}`)
     }
 
     const destinationOptions = hotels.filter(({ address, city, state, country }) =>
@@ -90,8 +99,8 @@ const SearchStayWithDate = () => {
                             placeholder="Add Guests"
                         />
                     </div>
-                    <div className="flex items-end p-2">
-                        <button className="flex  h-full w-full p-1 bg-blue-600 text-white hover:bg-blue-700 transition">
+                    <div className="flex items-end" onClick={handleSearchButtonClick}>
+                        <button className="flex  h-full w-full p-3 bg-blue-600 text-white hover:bg-blue-700 transition">
                             <span className="material-icons-outlined">search</span>
                             <span>Search</span>
                         </button>
@@ -105,7 +114,7 @@ const SearchStayWithDate = () => {
                         destinationOptions && destinationOptions.map(({ address, city }, index) => (
                             <p
                                 onClick={() => handleSearchResultClick(address)}
-                                key={index} className="p-3hover:bg-blue-100cursor-pointer">
+                                key={index} className="p-3 hover:bg-blue-100 cursor-pointer">
                                 {address}, {city}
                             </p>
                         ))

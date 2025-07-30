@@ -3,13 +3,13 @@ import { useDate } from "../context/date-context";
 
 const Navbar = () => {
 
-    const { dateDispatch } = useDate();
+    const { destination, checkInDate, checkOutDate, guests, dateDispatch } = useDate();
 
-const onSearchClick = () => {
-    dateDispatch({
-        type: "OPEN_SEARCH_MODAL",
-    })
-}
+    const onSearchClick = () => {
+        dateDispatch({
+            type: "OPEN_SEARCH_MODAL",
+        })
+    }
 
     return (
         <nav className="bg-white border-b-1 border-gray-300 fixed top-0 left-0 w-full z-50">
@@ -26,19 +26,19 @@ const onSearchClick = () => {
                             to="/"
                             className="text-gray-700 hover:text-blue-600 transition duration-200 pr-2 border-r border-gray-300"
                         >
-                            Any Where
+                            {destination || "Any Where"}
                         </span>
                         <span
                             to="/"
                             className="text-gray-700 hover:text-blue-600 transition duration-200 pr-2 border-r border-gray-300"
                         >
-                            Any Week
+                            {checkInDate && checkOutDate ? `${checkInDate.toLocaleDateString("en-US", { day: "numeric", month: "short" })} - ${checkOutDate.toLocaleDateString("en-US", { day: "numeric", month: "short" })}` : "Any Week"}
                         </span>
                         <span
                             to="/"
                             className="text-gray-700 hover:text-blue-600 transition duration-200 "
                         >
-                            Any Guests
+                            {guests > 0 ? `${guests} guests` : "Any Guests"}
                         </span>
                         <span
                             to="/"
@@ -47,7 +47,7 @@ const onSearchClick = () => {
                             search
                         </span>
                     </div>
-
+                    
 
                     <div className="flex items-center space-x-4">
                         <button>
