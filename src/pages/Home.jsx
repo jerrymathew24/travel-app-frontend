@@ -4,10 +4,13 @@ import HotelCard from '../components/HotelCard';
 import Navbar from '../components/Navbar';
 import Categories from '../components/Categories';
 import { useCategory } from '../context/category-context';
+import SearchStayWithDate from '../components/SearchStayWithDate';
+import { useDate } from '../context/date-context';
 
 const Home = () => {
   const [hotels, setHotels] = useState([]);
   const { hotelCategory } = useCategory();
+  const {isSearchModalOpen} = useDate();
 
   useEffect(() => {
     (async () => {
@@ -29,6 +32,9 @@ const Home = () => {
           <HotelCard key={hotel._id} hotel={hotel} />
         ))}
       </main>
+      {
+        isSearchModalOpen && <SearchStayWithDate />
+      }
     </>
   );
 };
