@@ -28,7 +28,7 @@ const DateSelector = ({ placeholder, checkInType }) => {
             placeholderText="Add Date"
             onFocus={handleDateFocus}
             closeOnScroll={true}
-            className="focus:outline-none border-none px-3 p-[.0rem]  text-center w-48 text-blue-600"
+            className="focus:outline-none border-none px-3 p-[.0rem]  text-center w-48 text-blue-600 text-sm"
         />
     )
 }
