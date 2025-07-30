@@ -18,7 +18,7 @@ const RoomsAndBeds = () => {
               {numbersOfAmenities.map((number) => (
                 <span
                   key={number}
-                  className="px-4 py-1 rounded-md border text-sm cursor-pointer hover:bg-blue-100 hover:border-blue-500 transition"
+                  className="px-4 py-1 rounded-md border border-gray-400 text-sm cursor-pointer hover:bg-blue-100 hover:border-blue-500 transition"
                 >
                   {number}
                 </span>
