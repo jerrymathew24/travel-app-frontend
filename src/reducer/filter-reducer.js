@@ -45,6 +45,16 @@ export const filterReducer = (state, { type, payload }) => {
         noOfBeds:
           payload === "Any" ? payload : payload === "5+" ? 5 : Number(payload),
       };
+    case "PROPERTY_TYPE":
+      return {
+        ...state,
+        propertyType: payload,
+      };
+    case "RATING":
+      return {
+        ...state,
+        traveloRating: Number(payload),
+      };
     default:
       return state;
   }
