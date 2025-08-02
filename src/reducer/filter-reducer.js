@@ -55,6 +55,22 @@ export const filterReducer = (state, { type, payload }) => {
         ...state,
         traveloRating: Number(payload),
       };
+    case "CANCELABLE":
+      return {
+        ...state,
+        isCancelable: payload,
+      };
+    case "CLEAR_ALL":
+      return {
+        ...state,
+        priceRange: [300, 20000],
+        noOfBathrooms: "Any",
+        noOfBedrooms: "Any",
+        noOfBeds: "Any",
+        propertyType: "Any",
+        traveloRating: 1,
+        isCancelable: true,
+      };
     default:
       return state;
   }
