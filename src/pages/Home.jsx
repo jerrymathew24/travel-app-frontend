@@ -9,12 +9,15 @@ import { useDate } from '../context/date-context';
 import { useFilter } from '../context/filter-context';
 import Filter from '../components/Filters/Filter';
 import { getHotelsByRoomsAndBeds } from '../utils/room-beds';
+import { getHotelsByPropertyType } from '../utils/property';
+import { getHotelsByRatings } from '../utils/rating';
+import { getHotelsByCancelation } from '../utils/hotel-cancel';
 
 const Home = () => {
   const [hotels, setHotels] = useState([]);
   const { hotelCategory } = useCategory();
   const { isSearchModalOpen } = useDate();
-  const { isFilterModalOpen, priceRange, noOfBathrooms, noOfBedrooms, noOfBeds } = useFilter();
+  const { isFilterModalOpen, priceRange, noOfBathrooms, noOfBedrooms, noOfBeds, propertyType, traveloRating, isCancelable } = useFilter();
 
   useEffect(() => {
     (async () => {
@@ -27,14 +30,21 @@ const Home = () => {
     })();
   }, [hotelCategory]);
 
-  const filteredHotelsByPrice = hotels.filter( hotel=> hotel.price >= priceRange[0] && hotel.price <= priceRange[1])
-const filteredHotelsByBedsAndRooms = getHotelsByRoomsAndBeds(filteredHotelsByPrice, noOfBathrooms, noOfBedrooms, noOfBeds) 
+  const filteredHotelsByPrice = hotels.filter(hotel => hotel.price >= priceRange[0] && hotel.price <= priceRange[1])
+  const filteredHotelsByBedsAndRooms = getHotelsByRoomsAndBeds(filteredHotelsByPrice, noOfBathrooms, noOfBedrooms, noOfBeds)
+
+  const filteredHotelsByPropertyType = getHotelsByPropertyType(filteredHotelsByBedsAndRooms, propertyType)
+
+  const filteredHotelsByRatings = getHotelsByRatings(filteredHotelsByPropertyType, traveloRating)
+
+  const filteredHotelsByCancelation = getHotelsByCancelation(filteredHotelsByRatings, isCancelable)
+
   return (
     <>
       <Navbar />
       <Categories />
       <main className="mt-28 p-4 flex flex-wrap justify-center gap-6">
-        { filteredHotelsByBedsAndRooms &&   filteredHotelsByBedsAndRooms.map(hotel => (
+        {filteredHotelsByCancelation && filteredHotelsByCancelation.map(hotel => (
           <HotelCard key={hotel._id} hotel={hotel} />
         ))}
       </main>
@@ -42,7 +52,7 @@ const filteredHotelsByBedsAndRooms = getHotelsByRoomsAndBeds(filteredHotelsByPri
         isSearchModalOpen && <SearchStayWithDate />
       }
       {
-        isFilterModalOpen && <Filter/>
+        isFilterModalOpen && <Filter />
       }
     </>
   );

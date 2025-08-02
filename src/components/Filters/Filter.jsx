@@ -14,6 +14,12 @@ const Filter = () => {
             type: "SHOW_FILTER_MODAL"
         })
     }
+
+    const handleClearFilterClick =()=>{
+        filterDispatch({
+            type:"CLEAR_ALL"
+        })
+    }
     return (
         <div className="fixed inset-0 z-50 text-gray-800">
             <div className="absolute inset-0 bg-black opacity-40"></div>
@@ -30,8 +36,8 @@ const Filter = () => {
                 <Ratings />
                 <FreeCancellation />
                 <div className="flex justify-between py-2">
-                    <button className="cursor-pointer border-b border-b-black">Clear All</button>
-                    <button className="cursor-pointer p-[.5rem] w-30 rounded-[.2rem] bg-blue-500">Apply</button>
+                    <button className="cursor-pointer border-b border-b-black" onClick={handleClearFilterClick}>Clear All</button>
+                    <button className="cursor-pointer p-[.5rem] w-30 rounded-[.2rem] bg-blue-500" onClick={handleFilterModalCloseClick} >Apply</button>
                 </div>
             </div>
         </div>
