@@ -1,10 +1,18 @@
+import { useNavigate } from "react-router-dom";
 import { useDate } from "../context/date-context";
 import DateSelector from "./DateSelector";
 
 const FinalPrice = ({ singleHotel }) => {
 
-  const { price, rating } = singleHotel || {};
-  const { guests, dateDispatch } = useDate()
+  const { _id, price, rating } = singleHotel || {};
+  const { guests, dateDispatch, checkInDate, checkOutDate } = useDate()
+
+  const numberOfNights =
+    checkInDate && checkOutDate
+      ? (checkOutDate.getTime() - checkInDate.getTime()) / (1000 * 3600 * 24)
+      : 0;
+
+  const navigate = useNavigate()
 
   const handleGuestChange = (event) => {
     dateDispatch({
@@ -12,6 +20,14 @@ const FinalPrice = ({ singleHotel }) => {
       payload: event.target.value
     })
   }
+
+  const handleReserveClick = () => {
+    navigate(`/confirm-booking/stay/${_id}`);
+  };
+
+
+
+   const totalPayableAmount = price * numberOfNights + 250;
 
   return (
     <div className=" w-[30vw] text-gray-900 p-7 shadow-2xl  space-y-4 h-[26rem] mt-14">
@@ -45,8 +61,10 @@ const FinalPrice = ({ singleHotel }) => {
       {/* Fee breakdown */}
       <div className="border-t border-gray-400 pt-3 text-base text-gray-700 space-y-1">
         <div className="flex justify-between">
-          <span>{price} X 2 nights</span>
-          <span>{price * 2}</span>
+          <span>Amount</span>
+          
+          <span>{totalPayableAmount - 250}</span>
+
         </div>
         <div className="flex justify-between">
           <span>Service fee</span>
@@ -54,14 +72,14 @@ const FinalPrice = ({ singleHotel }) => {
         </div>
         <div className="flex justify-between font-semibold border-t border-gray-400 pt-2">
           <span>Total</span>
-          <span>₹{price * 2 + 250}</span>
+          <span>₹{totalPayableAmount}</span>
         </div>
       </div>
 
       {/* Reserve button */}
-      <button
-        className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition cursor-pointer"
-
+      <button className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition cursor-pointer"
+        onClick={handleReserveClick}
+        disabled={checkInDate && checkOutDate && guests > 0 ? false : true}
       >
         Reserve
       </button>
