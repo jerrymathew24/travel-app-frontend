@@ -58,6 +58,26 @@ const AuthLogin = () => {
     })
   };
 
+
+
+   const handleTestCredentialsClick = async () => {
+    const { accessToken, username } = await loginHandler(8281897063, "Qwerty@123");
+    authDispatch({
+      type: "SET_ACCESS_TOKEN",
+      payload: accessToken,
+    });
+    authDispatch({
+      type: "SET_USER_NAME",
+      payload: username,
+    });
+    authDispatch({
+      type: "CLEAR_USER_DATA",
+    });
+    authDispatch({
+      type: "SHOW_AUTH_MODAL",
+    });
+  };
+
   return (
     <div className=" flex items-center justify-center bg-gray-100">
 
@@ -108,7 +128,7 @@ const AuthLogin = () => {
         <div className="mt-5 text-center">
           <button
             type="button"
-            className="w-full py-2 border border-blue-600 text-blue-600 font-semibold rounded-lg hover:bg-blue-50 transition"
+            className="w-full py-2 border border-blue-600 text-blue-600 font-semibold rounded-lg hover:bg-blue-50 transition"  onClick={handleTestCredentialsClick}
           >
             Login with Test Credentials
           </button>
