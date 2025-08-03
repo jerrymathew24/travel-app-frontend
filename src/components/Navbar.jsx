@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useDate } from "../context/date-context";
 import { useAuth } from "../context/auth-context";
 
-const Navbar = () => {
+const Navbar = ({route}) => {
 
     const { destination, checkInDate, checkOutDate, guests, dateDispatch } = useDate();
     const { authDispatch } = useAuth()
@@ -34,7 +34,7 @@ const Navbar = () => {
                             to="/"
                             className="text-gray-700 hover:text-blue-600 transition duration-200 pr-2 border-r border-gray-300"
                         >
-                            {destination || "Any Where"}
+                            {route === "home" ? "Any Where" : (destination || "Any Where")}
                         </span>
                         <span
                             to="/"

@@ -6,6 +6,7 @@ import SearchResults from './pages/SearchResults';
 import Filter from './components/Filters/Filter';
 import  Wishlist  from './pages/Wishlist';
 import Payment from './pages/Payment';
+import OrderSummary from './components/OrderSummary';
 function App() {
   return (
     <div>
@@ -15,6 +16,7 @@ function App() {
         <Route path='hotels/:address' element={<SearchResults />} />
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/confirm-booking/stay/:id" element={<Payment />} />
+        <Route path='/order-summary' element={<OrderSummary />} />
       </Routes>
     </div>
   );

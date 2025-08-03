@@ -45,7 +45,7 @@ const Home = () => {
 
   return (
     <>
-      <Navbar />
+      <Navbar route="home" />
       <Categories />
       <main className="mt-28 p-4 flex flex-wrap justify-center gap-6">
         {filteredHotelsByCancelation && filteredHotelsByCancelation.map(hotel => (
