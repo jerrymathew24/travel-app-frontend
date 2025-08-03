@@ -12,12 +12,16 @@ import { getHotelsByRoomsAndBeds } from '../utils/room-beds';
 import { getHotelsByPropertyType } from '../utils/property';
 import { getHotelsByRatings } from '../utils/rating';
 import { getHotelsByCancelation } from '../utils/hotel-cancel';
+import { useAuth } from '../context/auth-context';
+import AuthModal from '../components/AuthModal';
 
 const Home = () => {
   const [hotels, setHotels] = useState([]);
   const { hotelCategory } = useCategory();
   const { isSearchModalOpen } = useDate();
   const { isFilterModalOpen, priceRange, noOfBathrooms, noOfBedrooms, noOfBeds, propertyType, traveloRating, isCancelable } = useFilter();
+  const { isAuthModalOpen } = useAuth()
+
 
   useEffect(() => {
     (async () => {
@@ -53,6 +57,9 @@ const Home = () => {
       }
       {
         isFilterModalOpen && <Filter />
+      }
+      {
+        isAuthModalOpen && <AuthModal />
       }
     </>
   );

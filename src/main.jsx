@@ -6,6 +6,7 @@ import { CategoryProvider } from './context/category-context.jsx'
 import { BrowserRouter } from 'react-router-dom'
 import { DateProvider } from './context/date-context.jsx'
 import { FilterProvider } from './context/filter-context.jsx'
+import { AuthProvider } from './context/auth-context.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -13,7 +14,9 @@ createRoot(document.getElementById('root')).render(
       <FilterProvider>
         <CategoryProvider>
           <DateProvider>
-            <App />
+            <AuthProvider>
+              <App />
+            </AuthProvider>
           </DateProvider>
         </CategoryProvider>
       </FilterProvider>

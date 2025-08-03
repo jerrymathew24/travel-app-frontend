@@ -1,13 +1,21 @@
 import { Link } from "react-router-dom";
 import { useDate } from "../context/date-context";
+import { useAuth } from "../context/auth-context";
 
 const Navbar = () => {
 
     const { destination, checkInDate, checkOutDate, guests, dateDispatch } = useDate();
+    const { authDispatch } = useAuth()
 
     const onSearchClick = () => {
         dateDispatch({
             type: "OPEN_SEARCH_MODAL",
+        })
+    }
+
+    const handleAuthClick = () => {
+        authDispatch({
+            type: "SHOW_AUTH_MODAL"
         })
     }
 
@@ -47,20 +55,20 @@ const Navbar = () => {
                             search
                         </span>
                     </div>
-                    
 
-                    <div className="flex items-center space-x-4">
-                        <button>
-                            <span className="material-symbols-outlined text-gray-700 cursor-pointer">
-                                home
+
+                    <nav
+                        className="flex items-center gap-6 cursor-pointer"
+                        onClick={handleAuthClick}
+                    >
+                        <div className="flex items-center space-x-2">
+                            <span className="material-icons-outlined text-gray-700 text-xl">menu</span>
+                            <span className="material-icons-outlined text-gray-700 text-xl">
+                                person_2
                             </span>
-                        </button>
-                        <button>
-                            <span className="material-symbols-outlined text-gray-700 cursor-pointer">
-                                account_circle
-                            </span>
-                        </button>
-                    </div>
+                        </div>
+                    </nav>
+
 
                 </div>
             </div>
